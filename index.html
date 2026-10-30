@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Punjabi Food Cafe (PFC) | Ramgarh Cantt</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #060709;
+      --surface: #101218;
+      --surface-card: #151821;
+      --primary: #f59e0b;
+      --primary-glow: rgba(245, 158, 11, 0.45);
+      --accent-green: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --red-alert: #ef4444;
+      --text-main: #f9fafb;
+      --text-sub: #9ca3af;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =========================================
+       1. OFFICIAL ROUND LOGO SPLASH SCREEN
+    ========================================= */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #151824 0%, #060709 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    }
+
+    .splash-logo-wrap {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-glow-ring {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary) 0%, rgba(16, 185, 129, 0.45) 55%, transparent 75%);
+      filter: blur(28px);
+      animation: flashGlow 2.2s forwards ease-in-out;
+    }
+
+    .splash-logo-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(245, 158, 11, 0.8);
+      box-shadow: 0 0 35px var(--primary-glow);
+      animation: logoScaleUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      background: #111;
+    }
+
+    .splash-text {
+      margin-top: 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 3px;
+      color: var(--primary);
+      text-shadow: 0 0 18px var(--primary-glow);
+      opacity: 0;
+      transform: translateY(16px);
+      animation: textFadeIn 1.6s ease forwards 0.4s;
+    }
+
+    @keyframes logoScaleUp {
+      0% { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+      50% { transform: scale(1.12) rotate(0deg); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flashGlow {
+      0% { opacity: 0; transform: scale(0.4); }
+      40% { opacity: 1; transform: scale(1.5); }
+      80% { opacity: 0.5; transform: scale(1.1); }
+      100% { opacity: 0; transform: scale(1.8); }
+    }
+
+    @keyframes textFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .splash-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none;
+    }
+
+    /* =========================================
+       2. TOP BAR & BRAND
+    ========================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(6, 7, 9, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      object-fit: cover;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .brand-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .brand-title span {
+      color: var(--primary);
+    }
+
+    .cart-trigger-btn {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 9px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cart-trigger-btn:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 14px var(--primary-glow);
+    }
+
+    .cart-count-badge {
+      background: var(--accent-green);
+      color: #000;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    /* =========================================
+       3. HERO BANNER (CAFE INTERIOR AMBIENCE)
+    ========================================= */
+    .hero-banner {
+      margin: 16px 20px 8px;
+      border-radius: var(--radius-lg);
+      background: 
+        linear-gradient(to right, rgba(6, 7, 9, 0.94) 35%, rgba(6, 7, 9, 0.65) 100%),
+        url('https://raw.githubusercontent.com/sibtain27/Punjabi-food-cafe/main/1000191336.jpg') center/cover no-repeat;
+      border: 1px solid var(--border);
+      padding: 30px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .hero-banner h1 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .hero-banner h1 span {
+      color: var(--primary);
+      text-shadow: 0 0 18px var(--primary-glow);
+    }
+
+    .hero-banner p {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 480px;
+    }
+
+    .pills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .info-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      background: rgba(16, 18, 24, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+    }
+
+    .info-tag i {
+      color: var(--primary);
+    }
+
+    /* =========================================
+       4. SEARCH & CATEGORIES
+    ========================================= */
+    .search-box-wrap {
+      padding: 14px 20px 4px;
+    }
+
+    .search-input-box {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 13px 16px 13px 44px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%239ca3af' viewBox='0 0 24 24'%3E%3Cpath d='M10 2a8 8 0 015.3 14l5.4 5.3a1 1 0 01-1.4 1.4l-5.3-5.4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 15px center;
+      background-size: 18px;
+    }
+
+    .search-input-box:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .categories-carousel {
+      display: flex;
+      gap: 8px;
+      padding: 12px 20px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categories-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .category-pill.active {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 0 14px var(--primary-glow);
+    }
+
+    /* =========================================
+       5. MENU ITEMS GRID
+    ========================================= */
+    .menu-container {
+      padding: 0 20px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-headline {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .food-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .food-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      background: #181b22;
+      overflow: hidden;
+    }
+
+    .card-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .food-card:hover .card-thumb-wrap img {
+      transform: scale(1.06);
+    }
+
+    .badge-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .item-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent-green);
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .item-description {
+      color: var(--text-sub);
+      font-size: 12.5px;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-bottom-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .rating-mini {
+      font-size: 12px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rating-mini i {
+      color: #fbbf24;
+    }
+
+    .add-btn {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .add-btn:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    /* =========================================
+       6. PRODUCT DETAIL MODAL (DOMINO'S SMOOTH)
+    ========================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .product-sheet {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-width: 550px;
+      max-height: 85vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-backdrop.open .product-sheet {
+      transform: translateY(0);
+    }
+
+    .modal-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+    }
+
+    .modal-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .modal-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    .modal-desc {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .custom-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .option-chips-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .custom-chip {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: 0.2s;
+    }
+
+    .custom-chip.active {
+      border-color: var(--primary);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+    }
+
+    .counter-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cnt-btn {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-confirm-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      font-weight: 800;
+      font-size: 15px;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+
+    /* =========================================
+       7. CART & STRICT RED ALERTS
+    ========================================= */
+    .cart-drawer-sheet {
+      padding: 24px;
+    }
+
+    .cart-items-list {
+      max-height: 230px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cart-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .cart-item-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .cart-item-info p {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .input-group {
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .input-label {
+      font-size: 11.5px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 5px;
+      display: block;
+      letter-spacing: 0.5px;
+    }
+
+    .order-input-field {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .order-input-field:focus {
+      border-color: var(--primary);
+    }
+
+    /* Strict Red Alert Indicators */
+    .order-input-field.input-error {
+      border-color: var(--red-alert) !important;
+      background: rgba(239, 68, 68, 0.08) !important;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.25) !important;
+    }
+
+    .red-alert-msg {
+      color: var(--red-alert);
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 5px;
+      display: none;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .red-alert-msg.visible {
+      display: flex;
+    }
+
+    .whatsapp-submit-btn {
+      background: #25D366;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .whatsapp-submit-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 35px 20px 40px;
+      border-top: 1px solid var(--border);
+      background: #050608;
+      color: var(--text-sub);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .footer-btn {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s;
+    }
+
+    .footer-btn:hover {
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       1. OFFICIAL LOGO SPLASH SCREEN
+  ========================================= -->
+  <div id="splash-screen">
+    <div class="splash-logo-wrap">
+      <div class="splash-glow-ring"></div>
+      <!-- Authentic Round Punjabi Food Cafe Logo with Fork -->
+      <img src="https://raw.githubusercontent.com/sibtain27/Punjabi-food-cafe/main/1000191332.jpg" 
+           alt="Punjabi Food Cafe Logo" 
+           class="splash-logo-img" />
+    </div>
+    <div class="splash-text">PUNJABI FOOD CAFE</div>
+  </div>
+
+  <!-- =========================================
+       2. TOP NAVIGATION
+  ========================================= -->
+  <header>
+    <a href="#" class="brand-group">
+      <img src="https://raw.githubusercontent.com/sibtain27/Punjabi-food-cafe/main/1000191332.jpg" 
+           alt="PFC Logo" 
+           class="brand-icon" />
+      <span class="brand-title">PFC <span>RAMGARH</span></span>
+    </a>
+    <button class="cart-trigger-btn" onclick="openCartModal()">
+      <i class="fas fa-shopping-bag"></i> Cart
+      <span class="cart-count-badge" id="cart-counter">0</span>
+    </button>
+  </header>
+
+  <!-- =========================================
+       3. HERO BANNER WITH CAFE INTERIOR AMBIENCE
+  ========================================= -->
+  <section class="hero-banner">
+    <span class="hero-badge"><i class="fas fa-fire"></i> RAMGARH'S FAVORITE SPOT</span>
+    <h1>Good Food • <span>Good Vibes</span></h1>
+    <p>Balaji Complex, Opp. Block Office. Savor authentic North Indian, Chinese plates & refreshing cafe coolers.</p>
+    
+    <div class="pills-container">
+      <span class="info-tag"><i class="fas fa-book-reader"></i> Reading Corner & Novels</span>
+      <span class="info-tag"><i class="fas fa-wifi"></i> Free Fast Wi-Fi</span>
+      <span class="info-tag"><i class="fas fa-users"></i> Youth & Family Hangout</span>
+      <span class="info-tag"><i class="fas fa-star"></i> 4.1 Rating (400+ Reviews)</span>
+    </div>
+  </section>
+
+  <!-- =========================================
+       4. SEARCH & CATEGORIES
+  ========================================= -->
+  <div class="search-box-wrap">
+    <input type="text" id="menu-search" class="search-input-box" placeholder="Search momos, pizza, burger, shake, rolls..." oninput="handleSearch(this.value)" />
+  </div>
+
+  <div class="categories-carousel">
+    <button class="category-pill active" onclick="filterCategory('all', this)">All Items</button>
+    <button class="category-pill" onclick="filterCategory('popular', this)">🔥 Bestsellers</button>
+    <button class="category-pill" onclick="filterCategory('rolls', this)">🌯 Wraps & Rolls</button>
+    <button class="category-pill" onclick="filterCategory('pizza', this)">🍕 Pizzas & Pasta</button>
+    <button class="category-pill" onclick="filterCategory('chinese', this)">🍜 Chinese & Momos</button>
+    <button class="category-pill" onclick="filterCategory('shakes', this)">🥤 Shakes & Drinks</button>
+  </div>
+
+  <!-- =========================================
+       5. MENU ITEMS
+  ========================================= -->
+  <main class="menu-container">
+    <div class="section-headline">Explore Menu Items</div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </main>
+
+  <!-- =========================================
+       6. PRODUCT DETAIL MODAL
+  ========================================= -->
+  <div class="modal-backdrop" id="product-modal" onclick="closeOnBackdrop(event, 'product-modal')">
+    <div class="product-sheet">
+      <div class="modal-image-wrap">
+        <img id="modal-img" src="" alt="Food Item" />
+        <div class="modal-close-btn" onclick="closeProductModal()"><i class="fas fa-times"></i></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-title-row">
+          <span class="modal-title" id="modal-title">Item Name</span>
+          <span class="modal-price" id="modal-price">₹0</span>
+        </div>
+        <p class="modal-desc" id="modal-desc">Item Description</p>
+
+        <div>
+          <div class="custom-section-title">Cooking Note / Preference</div>
+          <div class="option-chips-row">
+            <button class="custom-chip active" onclick="selectChip(this)">Standard</button>
+            <button class="custom-chip" onclick="selectChip(this)">Extra Spicy</button>
+            <button class="custom-chip" onclick="selectChip(this)">Extra Cheese (+₹25)</button>
+          </div>
+        </div>
+
+        <div class="counter-row">
+          <span style="font-size: 13.5px; font-weight: 600;">Quantity</span>
+          <div class="counter-controls">
+            <button class="cnt-btn" onclick="changeQty(-1)"><i class="fas fa-minus"></i></button>
+            <span class="cnt-value" id="modal-qty">1</span>
+            <button class="cnt-btn" onclick="changeQty(1)"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+
+        <button class="modal-confirm-btn" onclick="addToCartFromModal()">
+          <i class="fas fa-cart-plus"></i> Add to Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       7. CART & RED ALERT STRICT FORM
+  ========================================= -->
+  <div class="modal-backdrop" id="cart-modal" onclick="closeOnBackdrop(event, 'cart-modal')">
+    <div class="product-sheet cart-drawer-sheet">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 18px; font-weight: 800;">Your Order</h3>
+        <button class="modal-close-btn" style="position: static;" onclick="closeCartModal()"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="cart-items-list" id="cart-list"></div>
+
+      <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 16px; margin: 12px 0 16px;">
+        <span>Total Bill:</span>
+        <span style="color: var(--accent-green);" id="cart-total-amt">₹0</span>
+      </div>
+
+      <!-- MANDATORY NAME INPUT WITH RED ALERT -->
+      <div class="input-group">
+        <label class="input-label">CUSTOMER NAME *</label>
+        <input type="text" id="cust-name" class="order-input-field" placeholder="Enter your full name" oninput="clearError('cust-name', 'name-error')" />
+        <div class="red-alert-msg" id="name-error">
+          <i class="fas fa-exclamation-triangle"></i> Requirement: Please enter your name!
+        </div>
+      </div>
+
+      <!-- MANDATORY ADDRESS INPUT WITH RED ALERT -->
+      <div class="input-group">
+        <label class="input-label">TABLE NO. / DELIVERY ADDRESS *</label>
+        <input type="text" id="cust-table" class="order-input-field" placeholder="Table number or complete address" oninput="clearError('cust-table', 'table-error')" />
+        <div class="red-alert-msg" id="table-error">
+          <i class="fas fa-exclamation-triangle"></i> Requirement: Table number or Address is required!
+        </div>
+      </div>
+
+      <button class="whatsapp-submit-btn" onclick="sendWhatsAppOrder()">
+        <i class="fab fa-whatsapp"></i> Confirm Order on WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>Punjabi Food Cafe (PFC)</strong></p>
+    <p>📍 Balaji Complex, Opp. Block Office, Bijulia, Ramgarh Cantt, Jharkhand</p>
+    <div class="footer-links">
+      <a href="tel:09608164374" class="footer-btn"><i class="fas fa-phone"></i> Call Cafe</a>
+      <a href="https://maps.google.com/?q=Punjabi+Food+Cafe+Ramgarh" target="_blank" class="footer-btn"><i class="fas fa-directions"></i> Open in Maps</a>
+    </div>
+    <p style="margin-top: 6px; opacity: 0.6;">Dine-In • Takeaway • Fresh & Fast</p>
+  </footer>
+
+  <!-- =========================================
+       8. APP LOGIC
+  ========================================= -->
+  <script>
+    // 1. Splash Screen Fade
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) splash.classList.add('splash-hidden');
+      }, 1900);
+    });
+
+    // 2. PFC Menu Dataset
+    const MENU = [
+      {
+        id: 1,
+        name: "Veg Cheese Burger",
+        category: "popular",
+        price: 85,
+        badge: "Bestseller",
+        desc: "Crispy vegetable patty topped with melting cheese slice and creamy mayo.",
+        img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 2,
+        name: "Paneer Cheese Roll",
+        category: "rolls",
+        price: 105,
+        badge: "Special Wrap",
+        desc: "Flaky paratha loaded with marinated spiced paneer chunks & mozzarella.",
+        img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 3,
+        name: "Chicken Roll",
+        category: "rolls",
+        price: 95,
+        badge: "Non-Veg",
+        desc: "Tender roasted chicken cubes tossed with mint chutney and crunchy onions.",
+        img: "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 4,
+        name: "Kurkure Momos (Veg)",
+        category: "chinese",
+        price: 99,
+        badge: "Crunchy",
+        desc: "Crunchy crumb-coated dumplings fried to golden perfection with spicy schezwan.",
+        img: "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 5,
+        name: "Cheese & Corn Pizza",
+        category: "pizza",
+        price: 175,
+        badge: "Chef's Special",
+        desc: "Fresh baked crust topped with golden sweet corn and molten cheese layer.",
+        img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 6,
+        name: "White Sauce Pasta",
+        category: "pizza",
+        price: 175,
+        badge: "Creamy",
+        desc: "Penne tossed in signature rich béchamel garlic cream sauce with oregano herbs.",
+        img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 7,
+        name: "Veg Hakka Chowmein",
+        category: "chinese",
+        price: 160,
+        badge: "Wok Tossed",
+        desc: "Authentic wok-tossed noodles with shredded vegetables and soy seasoning.",
+        img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 8,
+        name: "PFC Special Shake",
+        category: "shakes",
+        price: 150,
+        badge: "Thick Shake",
+        desc: "Signature rich thick shake loaded with dried nuts, chocolate fudge and ice cream.",
+        img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 9,
+        name: "Green Apple Mojito",
+        category: "shakes",
+        price: 75,
+        badge: "Cooler",
+        desc: "Zesty green apple syrup muddled with mint leaves, lime and bubbly fizz.",
+        img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 10,
+        name: "Hot Chocolate Brownie",
+        category: "popular",
+        price: 120,
+        badge: "Dessert",
+        desc: "Gooey chocolate fudge brownie topped with a chilled scoop of vanilla ice cream.",
+        img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    let currentItem = null;
+    let currentQty = 1;
+    let selectedNote = "Standard";
+    let cart = [];
+
+    // Render Menu Cards
+    function renderMenu(items) {
+      const grid = document.getElementById('menu-grid');
+      grid.innerHTML = items.map(item => `
+        <div class="food-card" onclick="openProductModal(${item.id})">
+          <div class="card-thumb-wrap">
+            <img src="${item.img}" alt="${item.name}" loading="lazy" />
+            <span class="badge-tag">${item.badge}</span>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="item-header">
+                <span class="item-name">${item.name}</span>
+                <span class="item-price">₹${item.price}</span>
+              </div>
+              <p class="item-description">${item.desc}</p>
+            </div>
+            <div class="card-bottom-action">
+              <span class="rating-mini"><i class="fas fa-star"></i> 4.8</span>
+              <button class="add-btn" onclick="event.stopPropagation(); openProductModal(${item.id})">
+                <i class="fas fa-plus"></i> ADD
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderMenu(MENU);
+
+    // Filters
+    function filterCategory(cat, el) {
+      document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      if (cat === 'all') {
+        renderMenu(MENU);
+      } else {
+        renderMenu(MENU.filter(i => i.category === cat));
+      }
+    }
+
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = MENU.filter(i => i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q));
+      renderMenu(filtered);
+    }
+
+    // Modal Operations
+    function openProductModal(id) {
+      const item = MENU.find(x => x.id === id);
+      if (!item) return;
+      currentItem = item;
+      currentQty = 1;
+      selectedNote = "Standard";
+
+      document.getElementById('modal-img').src = item.img;
+      document.getElementById('modal-title').innerText = item.name;
+      document.getElementById('modal-price').innerText = "₹" + item.price;
+      document.getElementById('modal-desc').innerText = item.desc;
+      document.getElementById('modal-qty').innerText = currentQty;
+
+      document.querySelectorAll('.custom-chip').forEach((chip, idx) => {
+        chip.classList.toggle('active', idx === 0);
+      });
+
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.remove('open');
+    }
+
+    function selectChip(el) {
+      document.querySelectorAll('.custom-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      selectedNote = el.innerText;
+    }
+
+    function changeQty(delta) {
+      currentQty = Math.max(1, currentQty + delta);
+      document.getElementById('modal-qty').innerText = currentQty;
+    }
+
+    function closeOnBackdrop(e, id) {
+      if (e.target.id === id) {
+        document.getElementById(id).classList.remove('open');
+      }
+    }
+
+    // Cart Handlers
+    function addToCartFromModal() {
+      if (!currentItem) return;
+      cart.push({
+        id: currentItem.id,
+        name: currentItem.name,
+        price: currentItem.price,
+        qty: currentQty,
+        note: selectedNote
+      });
+
+      updateCartBadge();
+      closeProductModal();
+    }
+
+    function updateCartBadge() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-counter').innerText = count;
+    }
+
+    function openCartModal() {
+      const list = document.getElementById('cart-list');
+      if (cart.length === 0) {
+        list.innerHTML = `<p style="text-align:center; color: var(--text-sub); padding: 20px;">Your cart is empty.</p>`;
+        document.getElementById('cart-total-amt').innerText = "₹0";
+      } else {
+        let total = 0;
+        list.innerHTML = cart.map((item, idx) => {
+          const itemTotal = item.price * item.qty;
+          total += itemTotal;
+          return `
+            <div class="cart-item-row">
+              <div class="cart-item-info">
+                <h4>${item.name} (${item.qty}x)</h4>
+                <p>₹${item.price} each • ${item.note}</p>
+              </div>
+              <div style="display:flex; align-items:center; gap: 10px;">
+                <span style="font-weight:700; color:var(--accent-green);">₹${itemTotal}</span>
+                <i class="fas fa-trash-alt" style="cursor:pointer; color:#ef4444;" onclick="removeItemFromCart(${idx})"></i>
+              </div>
+            </div>
+          `;
+        }).join('');
+        document.getElementById('cart-total-amt').innerText = "₹" + total;
+      }
+
+      document.getElementById('cart-modal').classList.add('open');
+    }
+
+    function closeCartModal() {
+      document.getElementById('cart-modal').classList.remove('open');
+    }
+
+    function removeItemFromCart(idx) {
+      cart.splice(idx, 1);
+      updateCartBadge();
+      openCartModal();
+    }
+
+    function clearError(inputId, errorId) {
+      document.getElementById(inputId).classList.remove('input-error');
+      document.getElementById(errorId).classList.remove('visible');
+    }
+
+    // 7. Strict Validation & WhatsApp Dispatch
+    function sendWhatsAppOrder() {
+      if (cart.length === 0) {
+        alert("Please add items to your cart first!");
+        return;
+      }
+
+      const nameInput = document.getElementById('cust-name');
+      const tableInput = document.getElementById('cust-table');
+      const nameError = document.getElementById('name-error');
+      const tableError = document.getElementById('table-error');
+
+      const name = nameInput.value.trim();
+      const table = tableInput.value.trim();
+
+      let hasError = false;
+
+      // Strict Validation Checks
+      if (!name) {
+        nameInput.classList.add('input-error');
+        nameError.classList.add('visible');
+        hasError = true;
+      } else {
+        nameInput.classList.remove('input-error');
+        nameError.classList.remove('visible');
+      }
+
+      if (!table) {
+        tableInput.classList.add('input-error');
+        tableError.classList.add('visible');
+        hasError = true;
+      } else {
+        tableInput.classList.remove('input-error');
+        tableError.classList.remove('visible');
+      }
+
+      // If either field is empty, do NOT open WhatsApp
+      if (hasError) {
+        return;
+      }
+
+      // Generate formatted order text
+      let grandTotal = 0;
+      let orderText = `*NEW ORDER - PUNJABI FOOD CAFE*%0A`;
+      orderText += `--------------------------------%0A`;
+      orderText += `*Customer:* ${encodeURIComponent(name)}%0A`;
+      orderText += `*Table / Address:* ${encodeURIComponent(table)}%0A%0A`;
+      orderText += `*Order Items:*%0A`;
+
+      cart.forEach((item, i) => {
+        const itemTot = item.price * item.qty;
+        grandTotal += itemTot;
+        orderText += `${i + 1}. ${encodeURIComponent(item.name)} x${item.qty} - ₹${itemTot} (${encodeURIComponent(item.note)})%0A`;
+      });
+
+      orderText += `--------------------------------%0A`;
+      orderText += `*Grand Total: ₹${grandTotal}*%0A%0A`;
+      orderText += `Please call to confirm my order and share the QR code for payment!`;
+
+      // Official PFC WhatsApp Number from Menu
+      const phone = "919608164374"; 
+      const url = `https://wa.me/${phone}?text=${orderText}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
