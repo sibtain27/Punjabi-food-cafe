@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punjabi Food Cafe | PFC Ramgarh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0a0b0e;
+      --card-bg: rgba(18, 20, 26, 0.85);
+      --gold-glow: #ffaa00;
+      --neon-green: #2ecc71;
+      --text-white: #ffffff;
+      --text-muted: #b0b3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 6%;
+      background: rgba(10, 11, 14, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 170, 0, 0.15);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--text-white);
+      text-decoration: none;
+      text-shadow: 0 0 10px rgba(255, 170, 0, 0.4);
+    }
+
+    .logo span {
+      color: var(--gold-glow);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, #ffaa00, #ff7700);
+      color: #000;
+      padding: 7px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(255, 170, 0, 0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Hero Section with Shop Entrance & Lofi Ambient Glow */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      background: 
+        linear-gradient(to bottom, rgba(10,11,14,0.65), rgba(10,11,14,0.95)),
+        radial-gradient(circle at center, rgba(46, 204, 113, 0.15), rgba(255, 170, 0, 0.12) 60%, transparent 80%),
+        url('https://raw.githubusercontent.com/sibtain27/Punjabi-food-cafe/main/1000191336.jpg') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .badge {
+      background: rgba(255, 170, 0, 0.1);
+      border: 1px solid rgba(255, 170, 0, 0.4);
+      padding: 6px 18px;
+      border-radius: 25px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: var(--gold-glow);
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);
+      animation: floatBadge 3s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      line-height: 1.2;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(0,0,0,0.8);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .hero h1 span.glow-gold {
+      color: var(--gold-glow);
+      text-shadow: 0 0 15px rgba(255, 170, 0, 0.7), 0 0 30px rgba(255, 170, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+
+    .btn-primary {
+      background: #25D366;
+      color: #ffffff;
+      padding: 13px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 18px rgba(37, 211, 102, 0.45);
+      animation: pulseGreen 2s infinite;
+      transition: 0.3s;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      padding: 13px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      transition: 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .rating-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 35px;
+      background: rgba(18, 20, 26, 0.75);
+      border: 1px solid rgba(255, 170, 0, 0.25);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      animation: fadeInUp 1.6s ease forwards;
+    }
+
+    .rating-pill i {
+      color: #ffaa00;
+      filter: drop-shadow(0 0 6px #ffaa00);
+    }
+
+    /* Menu Section */
+    .menu-section {
+      padding: 70px 20px;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 2px;
+      color: var(--gold-glow);
+      text-shadow: 0 0 15px rgba(255, 170, 0, 0.4);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+
+    /* Food Cards with Image & Animation */
+    .menu-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 170, 0, 0.5);
+      box-shadow: 0 12px 25px rgba(255, 170, 0, 0.15), 0 0 15px rgba(46, 204, 113, 0.1);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.4s ease;
+    }
+
+    .menu-card:hover .card-img {
+      transform: scale(1.04);
+    }
+
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .item-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .item-price {
+      color: var(--neon-green);
+      font-weight: 700;
+      font-size: 16px;
+      text-shadow: 0 0 8px rgba(46, 204, 113, 0.4);
+    }
+
+    .item-desc {
+      color: var(--text-muted);
+      font-size: 12.5px;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .order-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: rgba(37, 211, 102, 0.12);
+      color: #2ecc71;
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      padding: 9px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .order-item-btn:hover {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 20px 100px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 11, 14, 0.95);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer h3 {
+      color: var(--gold-glow);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    /* Floating WhatsApp Button */
+    .float-wa {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #25D366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      z-index: 999;
+      text-decoration: none;
+      animation: pulseGreen 2s infinite;
+      transition: transform 0.2s ease;
+    }
+
+    .float-wa:hover {
+      transform: scale(1.1);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">PFC <span>Cafe</span></a>
+    <a href="#menu" class="nav-btn">Menu</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="badge">🔥 RAMGARH'S FAVORITE SPOT</div>
+    <h1>Delicious Food &<br><span class="glow-gold">Chilled Mocktails</span></h1>
+    <p>Good Food • Good Mood • Great Time. Punjabi Food Cafe par aao aur lofi vibes ke saath lo asli swaad ka anand!</p>
+
+    <div class="hero-btns">
+      <a href="https://wa.me/?text=Hello%20Punjabi%20Food%20Cafe%2C%20I%20want%20to%20order" class="btn-primary" target="_blank">
+        <i class="fab fa-whatsapp"></i> Order on WhatsApp
+      </a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+
+    <div class="rating-pill">
+      <i class="fas fa-star"></i>
+      <span><strong>4.1</strong> Google Rating (400+ Reviews)</span>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="menu-section">
+    <div class="section-title">
+      <h2>PFC SPECIAL MENU</h2>
+      <p>Garma-garam chai, coffee, tasty bites aur special mocktails</p>
+    </div>
+
+    <div class="menu-grid">
+      <!-- Item 1: Chai -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80" alt="Desi Kulhad Chai" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Desi Kulhad Chai</span>
+            <span class="item-price">₹20</span>
+          </div>
+          <p class="item-desc">Adrak & elaichi flavor wali garma-garam kadak kulhad chai.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Desi%20Kulhad%20Chai" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 2: Cold Coffee -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80" alt="Classic Cold Coffee" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Classic Cold Coffee</span>
+            <span class="item-price">₹79</span>
+          </div>
+          <p class="item-desc">Thandi, thick aur creamy chocolate drizzle ke saath chilled coffee.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Classic%20Cold%20Coffee" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 3: Blue Lagoon -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80" alt="Blue Lagoon Mocktail" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Blue Lagoon Mocktail</span>
+            <span class="item-price">₹89</span>
+          </div>
+          <p class="item-desc">Refreshing citrus curaçao cooler with chilled lemon fizz.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Blue%20Lagoon%20Mocktail" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 4: French Fries -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80" alt="Crispy French Fries" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Crispy French Fries</span>
+            <span class="item-price">₹69</span>
+          </div>
+          <p class="item-desc">Golden salted crispy fries dip aur spicy peri-peri seasoning ke saath.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Crispy%20French%20Fries" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 5: Burger -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="Veg Cheese Burger" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Veg Cheese Burger</span>
+            <span class="item-price">₹79</span>
+          </div>
+          <p class="item-desc">Crispy patty, cheese slice aur special mayo dressing ke saath toasted bun.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Veg%20Cheese%20Burger" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 6: Sandwich -->
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" alt="Paneer Grilled Sandwich" class="card-img">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="item-title">Paneer Grilled Sandwich</span>
+            <span class="item-price">₹99</span>
+          </div>
+          <p class="item-desc">Marinated spicy paneer chunks, crunchy veggies aur melted cheese.</p>
+          <a href="https://wa.me/?text=Hello%20PFC%2C%20I%20want%20to%20order%20Paneer%20Grilled%20Sandwich" class="order-item-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <h3>Punjabi Food Cafe (PFC)</h3>
+    <p>📍 Near Ramgarh College, Ramgarh Cantt, Jharkhand</p>
+    <p>Dine-In • Take Away • Online Orders</p>
+  </footer>
+
+  <!-- Floating WA Button -->
+  <a href="https://wa.me/?text=Hello%20Punjabi%20Food%20Cafe%2C%20I%20have%20an%20inquiry" class="float-wa" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+</body>
+</html>
